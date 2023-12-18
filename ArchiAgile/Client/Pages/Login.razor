@@ -1,0 +1,23 @@
+﻿@layout LoginLayout
+@page "/login"
+
+<RadzenContent Container="main">
+    <ChildContent>
+        <RadzenHeading Size="H1" Text="Login">
+        </RadzenHeading>
+        <RadzenLabel Component="Username" style="display: block; margin-top: 16px" Text="User Name">
+        </RadzenLabel>
+        <RadzenTextBox style="width: 100%" Name="Username" @bind-Value="_signInRequest.Username">
+        </RadzenTextBox>
+        <RadzenLabel Component="Password" style="display: block; margin-top: 16px" Text="Password">
+        </RadzenLabel>
+        <RadzenPassword style="width: 100%" Name="Password" @bind-Value="_signInRequest.Password">
+        </RadzenPassword>
+        <RadzenLabel Component="Password" style="display: block; margin-top: 16px" Text="Remember Me">
+        </RadzenLabel>
+        <RadzenSwitch @bind-Value="_signInRequest.Rememberme" Name="RememberMe" />
+        <RadzenButton ButtonType="ButtonType.Button" style="margin-top: 16px; width: 100%" Text="Login" Click=@SignIn>
+        </RadzenButton>
+        
+    </ChildContent>
+</RadzenContent>

@@ -1,0 +1,56 @@
+﻿@page "/profile"
+
+<RadzenRow Gap="2rem" Class="rz-p-0 rz-p-lg-4">
+    <RadzenColumn Size="12" SizeMD="12">
+        <RadzenStack>
+        </RadzenStack>
+        <RadzenFieldset Text="Profile">
+            <RadzenStack Gap="1rem">
+                <RadzenRow AlignItems="AlignItems.Center">
+                    <RadzenColumn Size="12" SizeMD="4">
+                        <RadzenLabel Text="Picture" />
+                    </RadzenColumn>
+                    <RadzenColumn Size="12" SizeMD="8">
+                        <RadzenFileInput @bind-Value=@_user.Image TValue="string" Class="w-100"
+                                         Change=@(args => OnFileInputChange(args, "FileInput")) />
+                    </RadzenColumn>
+                </RadzenRow>
+                <RadzenRow AlignItems="AlignItems.Center">
+                    <RadzenColumn Size="12" SizeMD="4">
+                        <RadzenLabel Text="Name" />
+                    </RadzenColumn>
+                    <RadzenColumn Size="12" SizeMD="8">
+                        <RadzenTextBox style="width: 100%;" Name="Name" @bind-Value=@_user.Name />
+                    </RadzenColumn>
+                </RadzenRow>
+                <RadzenRow AlignItems="AlignItems.Center">
+                    <RadzenColumn Size="12" SizeMD="4">
+                        <RadzenLabel Text="Surname" />
+                    </RadzenColumn>
+                    <RadzenColumn Size="12" SizeMD="8">
+                        <RadzenTextBox style="width: 100%;" Name="Surname" @bind-Value=@_user.Surname />
+                    </RadzenColumn>
+                </RadzenRow>
+                <RadzenRow AlignItems="AlignItems.Center">
+                    <RadzenColumn Size="12" SizeMD="4">
+                        <RadzenLabel Text="Password" />
+                    </RadzenColumn>
+                    <RadzenColumn Size="12" SizeMD="8">
+                        <RadzenPassword style="width: 100%" Name="Password" @bind-Value=@_user.Password />
+                    </RadzenColumn>
+                </RadzenRow>
+                <RadzenRow AlignItems="AlignItems.Center">
+                    <RadzenColumn Size="12" SizeMD="4">
+                        <RadzenLabel Text="Re Password" />
+                    </RadzenColumn>
+                    <RadzenColumn Size="12" SizeMD="8">
+                        <RadzenPassword style="width: 100%" Name="Password" @bind-Value=@_user.Repassword />
+                    </RadzenColumn>
+                </RadzenRow>
+            </RadzenStack>
+        </RadzenFieldset>
+    </RadzenColumn>
+</RadzenRow>
+<RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.Center" Gap="1rem" Class="rz-mt-8 rz-mb-4">
+    <RadzenButton Click="@OnSaveClick" Text="Save" Style="width: 120px" />
+</RadzenStack>

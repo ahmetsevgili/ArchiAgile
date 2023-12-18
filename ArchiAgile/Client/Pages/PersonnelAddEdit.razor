@@ -1,0 +1,69 @@
+﻿
+
+<RadzenRow Gap="2rem" Class="rz-p-0 rz-p-lg-4">
+    <RadzenColumn Size="12" SizeMD="12">
+        <RadzenStack>
+        </RadzenStack>
+        <RadzenFieldset Text="Profile">
+            <RadzenStack Gap="1rem">
+                <RadzenRow AlignItems="AlignItems.Center">
+                    <RadzenColumn Size="12" SizeMD="4">
+                        <RadzenLabel Text="Name" />
+                    </RadzenColumn>
+                    <RadzenColumn Size="12" SizeMD="8">
+                        <RadzenTextBox style="width: 100%;" Name="Name" @bind-Value=@_personnel.Name />
+                    </RadzenColumn>
+                </RadzenRow>
+                <RadzenRow AlignItems="AlignItems.Center">
+                    <RadzenColumn Size="12" SizeMD="4">
+                        <RadzenLabel Text="Surname" />
+                    </RadzenColumn>
+                    <RadzenColumn Size="12" SizeMD="8">
+                        <RadzenTextBox style="width: 100%;" Name="Surname" @bind-Value=@_personnel.Surname />
+                    </RadzenColumn>
+                </RadzenRow>
+                <RadzenRow AlignItems="AlignItems.Center">
+                    <RadzenColumn Size="12" SizeMD="4">
+                        <RadzenLabel Text="User Role" />
+                    </RadzenColumn>
+                    <RadzenColumn Size="12" SizeMD="8">
+                        <RadzenDropDown AllowClear="true" AllowFiltering="true" TValue="int" Class="w-100"
+                                        Data=@(_personnelRoleList.Select(x => new {x.RecordID, x.Name}).Distinct())
+                                        ValueProperty="RecordID"
+                                        TextProperty="Name"
+                        @bind-Value=@_personnel.PersonnelRoleID />
+                    </RadzenColumn>
+                </RadzenRow>
+                <RadzenRow AlignItems="AlignItems.Center">
+                    <RadzenColumn Size="12" SizeMD="4">
+                        <RadzenLabel Text="Level" />
+                    </RadzenColumn>
+                    <RadzenColumn Size="12" SizeMD="8">
+                        <RadzenNumeric Min="1" Max="7" Step="1" TValue="int"  @bind-Value=@_personnel.Level />
+                    </RadzenColumn>
+                </RadzenRow>
+                <RadzenRow AlignItems="AlignItems.Center">
+                    <RadzenColumn Size="12" SizeMD="4">
+                        <RadzenLabel Text="Experience" />
+                    </RadzenColumn>
+                    <RadzenColumn Size="12" SizeMD="8">
+                        <RadzenNumeric Min="1" Max="7" Step="1" TValue="int" @bind-Value=@_personnel.Experience />
+                    </RadzenColumn>
+                </RadzenRow>
+                <RadzenRow AlignItems="AlignItems.Center">
+                    <RadzenColumn Size="12" SizeMD="4">
+                        <RadzenLabel Text="Is Active" />
+                    </RadzenColumn>
+                    <RadzenColumn Size="12" SizeMD="8">
+                        <RadzenSwitch @bind-Value=@_personnel.IsActive />
+                    </RadzenColumn>
+                </RadzenRow>
+            </RadzenStack>
+        </RadzenFieldset>
+    </RadzenColumn>
+</RadzenRow>
+<RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.Center" Gap="1rem" Class="rz-mt-8 rz-mb-4">
+    <RadzenButton Click="@OnCancelClick" ButtonStyle="ButtonStyle.Secondary" Text="Cancel" Style="width: 120px" Class="mr-1" />
+    <RadzenButton Click="@OnSaveClick" Text="Save" Style="width: 120px" />
+</RadzenStack>
+

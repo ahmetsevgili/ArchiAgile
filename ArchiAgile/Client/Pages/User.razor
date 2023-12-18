@@ -1,0 +1,43 @@
+﻿@page "/user"
+@attribute [Authorize(Roles = "Admin")]
+
+<RadzenFieldset Text="Users">
+
+    <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.Right" Gap="1rem" Class="rz-mt-8 rz-mb-4">
+        <RadzenButton style="width: 160px" Icon="add" BusyText="Adding ..." Text="Add" Click="@OnUserAddClick" />
+    </RadzenStack>
+    <div class="row">
+        <div class="col-md-12">
+            <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.Simple" PageSize="5" AllowSorting="true"
+                            Data="@_userList" TItem="@UserDTO" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or">
+                <Columns>
+                    <RadzenDataGridColumn TItem="UserDTO" Title="Image" Sortable="false" Filterable="false" Width="60px">
+                        <Template Context="data">
+                            <RadzenImage Path="@data.Image" style="width: 40px; height: 40px; border-radius: 8px;" />
+                        </Template>
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="UserDTO" Property="Username" Title="Username" Width="150px" />
+                    <RadzenDataGridColumn TItem="UserDTO" Property="Name" Title="Name" Width="100px" />
+                    <RadzenDataGridColumn TItem="UserDTO" Property="Surname" Title="Surname" Width="100px" />
+                    <RadzenDataGridColumn TItem="UserDTO" Title="Role" Width="100px">
+                        <Template Context="data">
+                            @(_userRoleList.FirstOrDefault(x => x.RecordID == data.UserRoleID)?.Name ?? "")
+                        </Template>
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="UserDTO" Title="IsActive" Width="100px">
+                        <Template Context="data">
+                            @(data.IsActive ? "Active" : "Passive")
+                        </Template>
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="UserDTO" Title="" Sortable="false" Filterable="false" Width="300px">
+                        <Template Context="data">
+                            <RadzenButton ButtonStyle=ButtonStyle.Primary style="width: 140px" Icon="edit" BusyText="Editing ..." Text="Edit" Click="@(()=>OnUserEditClick(data.RecordID))" />
+@*                             <RadzenButton ButtonStyle=ButtonStyle.Danger style="width: 140px" Icon="delete" BusyText="Deleting ..." Text=@localizer["Delete"] Click="@(()=>OnUserDeleteClick(data.RecordID))" /> *@
+                        </Template>
+                    </RadzenDataGridColumn>
+                </Columns>
+            </RadzenDataGrid>
+        </div>
+    </div>
+
+</RadzenFieldset>

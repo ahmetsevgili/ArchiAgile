@@ -1,0 +1,61 @@
+﻿@page "/journal"
+
+
+<RadzenFieldset Text="Journal">
+
+    <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.Right" Gap="1rem" Class="rz-mt-8 rz-mb-4">
+        <RadzenButton style="width: 160px" Icon="add" BusyText="Adding ..." Text="Add" Click="@OnJournalAddClick" />
+    </RadzenStack>
+    <div class="row">
+        <div class="col-md-12">
+            <RadzenDataGrid IsLoading=@_isLoading
+                            Count="@_count"                            
+                            AllowColumnResize="true"
+                            AllowPaging="true"
+                            FilterMode="FilterMode.Simple"
+                            AllowSorting="true"
+                            Data="@_journalList"
+                            LoadData="@LoadData"
+                            TItem="@JournalDTO"
+                            ColumnWidth="300px"
+                            LogicalFilterOperator="LogicalFilterOperator.Or"
+                            PageSize="25"
+            @ref="_grid">
+                <Columns>
+                    <RadzenDataGridColumn TItem="JournalDTO" Property="Date" Title="Date" Width="200px" SortOrder="SortOrder.Descending" />
+                    <RadzenDataGridColumn TItem="JournalDTO" Property="PersonnelID" Title="Personnel" Width="150px">
+                        <Template Context="data">
+                            @(_personnelList.FirstOrDefault(x=>x.RecordID==data.PersonnelID).NameSurname)
+                        </Template>
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="JournalDTO" Property="Notes" Title="Notes" Width="350px">
+                        <Template Context="data">
+                            @((MarkupString)data.Note)
+                        </Template>
+                        </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="JournalDTO" Property="ConferPersonnelD" Title="Confer Personnel" Width="150px">
+                        <Template Context="data">
+                            @(_personnelList.FirstOrDefault(x => x.RecordID == data.ConferPersonnelID).NameSurname)
+                        </Template>
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="JournalDTO" Property="ConferPersonneRolelD" Title="Confer Personnel Role" Width="150px">
+                        <Template Context="data">
+                            @(_personnelRoleList.FirstOrDefault(x => x.RecordID == data.ConferPersonnelRoleID).Name)
+                        </Template>
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="JournalDTO" Title="IsActive" Width="100px">
+                        <Template Context="data">
+                            @(data.IsActive ? "Active" : "Passive")
+                        </Template>
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="JournalDTO" Title="" Sortable="false" Filterable="false" Width="300px">
+                        <Template Context="data">
+                            <RadzenButton ButtonStyle=ButtonStyle.Primary style="width: 140px" Icon="edit" BusyText="Editing ..." Text="Edit" Click="@(()=>OnJournalEditClick(data.RecordID))" />
+                        </Template>
+                    </RadzenDataGridColumn>
+                </Columns>
+            </RadzenDataGrid>
+        </div>
+    </div>
+
+</RadzenFieldset>

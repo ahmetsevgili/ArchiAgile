@@ -1,0 +1,78 @@
+﻿
+
+<RadzenRow Gap="2rem" Class="rz-p-0 rz-p-lg-4">
+    <RadzenColumn Size="12" SizeMD="12">
+        <RadzenStack>
+        </RadzenStack>
+        <RadzenFieldset Text="Profile">
+            <RadzenStack Gap="1rem">
+                <RadzenRow AlignItems="AlignItems.Center">
+                    <RadzenColumn Size="12" SizeMD="4">
+                        <RadzenLabel Text="Date" />
+                    </RadzenColumn>
+                    <RadzenColumn Size="12" SizeMD="8">
+                        <RadzenDatePicker ShowTime="true" HourFormat="24" ShowSeconds="true" DateFormat="dd/MM/yyyy HH:mm:ss" HoursStep="1" MinutesStep="5" SecondsStep="10" style="width: 100%;" @bind-Value=@_journal.Date />
+                    </RadzenColumn>
+                </RadzenRow>
+                <RadzenRow AlignItems="AlignItems.Center">
+                    <RadzenColumn Size="12" SizeMD="4">
+                        <RadzenLabel Text="Personnel" />
+                    </RadzenColumn>
+                    <RadzenColumn Size="12" SizeMD="8">
+                        <RadzenDropDown AllowClear="true" AllowFiltering="true" TValue="int" Class="w-100"
+                                        Data=@(_personnelList.Select(x => new {x.RecordID, x.NameSurname}).Distinct())
+                                        ValueProperty="RecordID"
+                                        TextProperty="NameSurname"
+                        @bind-Value=@_journal.PersonnelID />
+                    </RadzenColumn>
+                </RadzenRow>
+                <RadzenRow AlignItems="AlignItems.Center">
+                    <RadzenColumn Size="12" SizeMD="4">
+                        <RadzenLabel Text="Confer Personnel" />
+                    </RadzenColumn>
+                    <RadzenColumn Size="12" SizeMD="8">
+                        <RadzenDropDown AllowClear="true" AllowFiltering="true" TValue="int" Class="w-100"
+                                        Data=@(_personnelList.Select(x => new {x.RecordID, x.NameSurname}).Distinct())
+                                        ValueProperty="RecordID"
+                                        TextProperty="NameSurname"
+                                        Change=@OnConferPersonnelChange
+                        @bind-Value=@_journal.ConferPersonnelID />
+                    </RadzenColumn>
+                </RadzenRow>
+                <RadzenRow AlignItems="AlignItems.Center">
+                    <RadzenColumn Size="12" SizeMD="4">
+                        <RadzenLabel Text="Confer Personnel Role" />
+                    </RadzenColumn>
+                    <RadzenColumn Size="12" SizeMD="8">
+                        <RadzenDropDown AllowClear="true" AllowFiltering="true" TValue="int" Class="w-100"
+                                        Data=@(_personnelRoleList.Select(x => new {x.RecordID, x.Name}).Distinct())
+                                        ValueProperty="RecordID"
+                                        TextProperty="Name"
+                        @bind-Value=@_journal.ConferPersonnelRoleID />
+                    </RadzenColumn>
+                </RadzenRow>
+                <RadzenRow AlignItems="AlignItems.Center">
+                    <RadzenColumn Size="12" SizeMD="4">
+                        <RadzenLabel Text="Note" />
+                    </RadzenColumn>
+                    <RadzenColumn Size="12" SizeMD="8">
+                        <RadzenHtmlEditor style="height: 300px;" @bind-Value=@_journal.Note />
+                    </RadzenColumn>
+                </RadzenRow>
+                <RadzenRow AlignItems="AlignItems.Center">
+                    <RadzenColumn Size="12" SizeMD="4">
+                        <RadzenLabel Text="Is Active" />
+                    </RadzenColumn>
+                    <RadzenColumn Size="12" SizeMD="8">
+                        <RadzenSwitch @bind-Value=@_journal.IsActive />
+                    </RadzenColumn>
+                </RadzenRow>
+            </RadzenStack>
+        </RadzenFieldset>
+    </RadzenColumn>
+</RadzenRow>
+<RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.Center" Gap="1rem" Class="rz-mt-8 rz-mb-4">
+    <RadzenButton Click="@OnCancelClick" ButtonStyle="ButtonStyle.Secondary" Text="Cancel" Style="width: 120px" Class="mr-1" />
+    <RadzenButton Click="@OnSaveClick" Text="Save" Style="width: 120px" />
+</RadzenStack>
+

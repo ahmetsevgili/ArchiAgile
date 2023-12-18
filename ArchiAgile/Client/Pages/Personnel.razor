@@ -1,0 +1,36 @@
+﻿@page "/personnel"
+
+
+<RadzenFieldset Text="Personnel">
+
+    <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.Right" Gap="1rem" Class="rz-mt-8 rz-mb-4">
+        <RadzenButton style="width: 160px" Icon="add" BusyText="Adding ..." Text="Add" Click="@OnPersonnelAddClick" />
+    </RadzenStack>
+    <div class="row">
+        <div class="col-md-12">
+            <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.Simple" PageSize="5" AllowSorting="true"
+                            Data="@_personnelList" TItem="@PersonnelDTO" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or">
+                <Columns>
+                    <RadzenDataGridColumn TItem="PersonnelDTO" Property="Name" Title="Name" Width="100px" />
+                    <RadzenDataGridColumn TItem="PersonnelDTO" Property="Surname" Title="Surname" Width="100px" />
+                    <RadzenDataGridColumn TItem="PersonnelDTO" Title="Role" Width="100px">
+                        <Template Context="data">
+                            @(_personnelRoleList.FirstOrDefault(x => x.RecordID == data.PersonnelRoleID)?.Name ?? "")
+                        </Template>
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="PersonnelDTO" Title="IsActive" Width="100px">
+                        <Template Context="data">
+                            @(data.IsActive ? "Active" : "Passive")
+                        </Template>
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="PersonnelDTO" Title="" Sortable="false" Filterable="false" Width="300px">
+                        <Template Context="data">
+                            <RadzenButton ButtonStyle=ButtonStyle.Primary style="width: 140px" Icon="edit" BusyText="Editing ..." Text="Edit" Click="@(()=>OnPersonnelEditClick(data.RecordID))" />
+                        </Template>
+                    </RadzenDataGridColumn>
+                </Columns>
+            </RadzenDataGrid>
+        </div>
+    </div>
+
+</RadzenFieldset>
